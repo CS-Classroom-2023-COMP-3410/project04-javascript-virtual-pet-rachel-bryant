@@ -26,11 +26,12 @@ html, body {
 }
 
 body {
+    background: #eff7ff;
     display: grid;
     grid-template-areas:
         "header header header"
         "stats dog buttons"
-        "warnings warnings warnings";
+        "warnings warnings upgrade";
     ;
     grid-template-columns: 2fr 3fr 2fr;
     grid-template-rows: 15% auto 20%;
@@ -56,7 +57,10 @@ body {
 /* styling for dog images and container */
 .dog {
     width: 90%;
-    /* position: relative; */
+}
+
+.dog:hover {
+    cursor: url('images/hand.png'), auto;
 }
 
 #dog-container {
@@ -141,8 +145,19 @@ body {
     cursor: default;
 }
 
+.care-btn:disabled, #upgrade-btn:disabled {
+    cursor: default;
+    background: #D4D4D4;
+    border: 2px solid #C4C4C4;
+}
+
+.care-btn:disabled:hover {
+    color: #000000;
+}
+
 /* styling the warnings bar */
 #warnings-bar {
+    border-radius: 10px;
     grid-area: warnings;
     text-align: center;
     align-self: center;
@@ -151,11 +166,11 @@ body {
     padding-bottom: 10px;
 }
 
-.warning-text {
+.sub-head {
     font-size:25px;
 }
 
-#no-warnings {
+.small-text {
     font-size:15px;
     display: block;
 }
@@ -171,4 +186,19 @@ body {
 .warning-img {
     width: 50px;
     display: none;
+}
+
+/* styling the upgrade bar */
+#upgrade-bar {
+    border-radius:10px;
+    grid-area: upgrade;
+    text-align: center;
+    background: #CCFF88;
+    width:100%;
+    padding-bottom: 3px;
+}
+
+#upgrade-bar > button {
+    background: #88FF88;
+    border: 2px solid #77cf77;
 }

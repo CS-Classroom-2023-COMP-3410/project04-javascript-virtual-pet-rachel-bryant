@@ -1,5 +1,15 @@
+// TODO: let user name dog
+// TODO: add audio
+
 // ACCESS HTML ELEMENTS
 const dog_container = document.getElementById("dog-container");
+
+// upgrade variables
+const points_dis = document.getElementById("pets");
+let pets = 0;
+let upgrade_cost = 10;
+let boost = 5;
+const boost_text = document.getElementById("boost-text");
 
 // warning variables
 const no_warnings = document.getElementById("no-warnings");
@@ -21,6 +31,13 @@ const sad = rootStyles.getPropertyValue('--sad').trim();
 const hungry = rootStyles.getPropertyValue('--hungry').trim();
 const sick = rootStyles.getPropertyValue('--sick').trim();
 const dirty = rootStyles.getPropertyValue('--clean').trim();
+
+// access buttons 
+const play_btn = document.getElementById("play-btn");
+const feed_btn = document.getElementById("feed-btn");
+const sick_btn = document.getElementById("medicine-btn");
+const clean_btn = document.getElementById("clean-btn");
+const upgrade_btn = document.getElementById("upgrade-btn");
 
 // initialize stats
 let happy_stat = 100;
@@ -58,7 +75,7 @@ const hunger_interval = setInterval(function(){
     }
 }, 2000);
 
-// health stat will decrease every 10 seconds
+// health stat will decrease every 7 seconds
 const health_interval = setInterval(function(){
     if (health_stat > 0){
         health_stat--;
@@ -70,7 +87,7 @@ const health_interval = setInterval(function(){
         no_warnings.style.display = "none";
         sick_icon.style.display = "block";
     }
-}, 10000);
+}, 7000);
 
 // cleanliness stat will decrease every 5 seconds
 const clean_interval = setInterval(function(){
@@ -86,6 +103,13 @@ const clean_interval = setInterval(function(){
     }
 }, 5000);
 
+// get 1 point every time you pet the dog
+document.querySelector(".dog").onclick = function() {
+    pets++;
+    points_dis.innerText = pets;
+}
+
+// checks if icon is hidden
 function isHidden(el) {
     return getComputedStyle(el).display === "none";
 }
@@ -99,9 +123,17 @@ function check_icons() {
 }
 
 // BUTTON FUNCTIONS
+// disables button for 10s after click
+function disable_btn(btn, time) {
+    btn.disabled = true;
+    setTimeout(function(){
+        btn.disabled = false;
+    }, time)
+}
+
 // play fetch
-document.getElementById("play-btn").onclick = function() {
-    happy_stat += 10;
+play_btn.onclick = function() {
+    happy_stat += boost;
     if (happy_stat > 100) { // max happy stat is 100
         happy_stat = 100;
     }
@@ -117,11 +149,12 @@ document.getElementById("play-btn").onclick = function() {
         sad_icon.style.display = "none";
         check_icons();
     }
+    disable_btn(play_btn, 15000);
 }
 
 // feed dog
-document.getElementById("feed-btn").onclick = function() {
-    hunger_stat -= 10;
+feed_btn.onclick = function() {
+    hunger_stat -= boost;
     if (hunger_stat < 0) { // max happy stat is 100
         hunger_stat = 0;
     }
@@ -129,24 +162,72 @@ document.getElementById("feed-btn").onclick = function() {
 
     if (hunger_stat <= 51) {
         colors_by_occurance.splice(colors_by_occurance.indexOf(hungry), 1);
-        dog_container.style.background = colors_by_occurance[colors_by_occurance.length-1];
+        if (colors_by_occurance.length == 0) {
+            dog_container.style.background = happy;
+        } else {
+            dog_container.style.background = colors_by_occurance[colors_by_occurance.length-1];
+        }
         hungry_icon.style.display = "none";
         check_icons();
     }
+    disable_btn(feed_btn, 10000);
 }
 
 // give dog medicine
-// document.getElementById("feed-btn").onclick = function() {
-//     health_stat += 10;
-//     if (health_stat > 100) { // max happy stat is 100
-//         health_stat = 100;
-//     }
-//     hunger_dis.innerHTML = "Health: " + health_stat;
+sick_btn.onclick = function() {
+    health_stat += boost;
+    if (health_stat > 100) { // max happy stat is 100
+        health_stat = 100;
+    }
+    health_dis.innerHTML = "Health: " + health_stat;
 
-//     if (health_stat <= 51) {
-//         colors_by_occurance.splice(colors_by_occurance.indexOf(sick), 1);
-//         dog_container.style.background = colors_by_occurance[colors_by_occurance.length-1];
-//         sick_icon.style.display = "none";
-//         check_icons();
-//     }
-// }
+    if (health_stat >= 50) {
+        colors_by_occurance.splice(colors_by_occurance.indexOf(sick), 1);
+        if (colors_by_occurance.length == 0) {
+            dog_container.style.background = happy;
+        } else {
+            dog_container.style.background = colors_by_occurance[colors_by_occurance.length-1];
+        }
+        sick_icon.style.display = "none";
+        check_icons();
+    }
+    disable_btn(sick_btn, 35000);
+}
+
+// give dog a bath
+clean_btn.onclick = function() {
+    clean_stat += boost;
+    if (clean_stat > 100) { // max happy stat is 100
+        clean_stat = 100;
+    }
+    clean_dis.innerHTML = "Cleanliness: " + clean_stat;
+
+    if (clean_stat >= 50) {
+        colors_by_occurance.splice(colors_by_occurance.indexOf(dirty), 1);
+        if (colors_by_occurance.length == 0) {
+            dog_container.style.background = happy;
+        } else {
+            dog_container.style.background = colors_by_occurance[colors_by_occurance.length-1];
+        }
+        dirty_icon.style.display = "none";
+        check_icons();
+    }
+    disable_btn(clean_btn, 25000);
+}
+
+// upgrades boost
+upgrade_btn.onclick = function() {
+    if ((pets >= upgrade_cost) && (boost <= 50)) {
+        pets -= upgrade_cost;
+        points_dis.innerText = pets;
+
+        boost++;
+        boost_text.innerHTML = "Boost: " + boost;
+
+        upgrade_cost += 5;
+        upgrade_btn.innerHTML = "Upgrade - " + upgrade_cost + " &#9995;";
+    }
+    if (boost >= 50) {
+        upgrade_btn.disabled = true;
+    }
+}

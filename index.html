@@ -11,6 +11,7 @@
         <h1 id="main-head" class="title">Doggy Daycare &#128054</h1>
         
         <div id="dog-container">
+            <p class="stat">&#9995;: <span id="pets">0</span></p>
             <img src="images/dog.png" class="dog">
         </div>
 
@@ -31,14 +32,20 @@
         </div>
 
         <div id="warnings-bar">
-            <h2 class="title warning-text">Warnings &#9888;&#65039;</h2>
-            <p id="no-warnings">**You have no warnings at the moment! Keep it up! Warnings will appear when your puppy isn't feeling well.**</p>
+            <h2 class="title sub-head">Warnings &#9888;&#65039;</h2>
+            <p id="no-warnings" class="small-text">**You have no warnings at the moment! Keep it up! Warnings will appear when your puppy isn't feeling well.**</p>
             <div id="icons">
                 <img title="Your puppy is sad. Play with him!" id="sad" class="warning-img" src="images/sad.png">
                 <img title="Your puppy is hungry. Feed him!" id="hungry" class="warning-img" src="images/hungry.png">
                 <img title="Your puppy is sick. Give him medicine!" id="sick" class="warning-img" src="images/sick.png">
                 <img title="Your puppy is dirty. Give him a bath!" id="dirty" class="warning-img" src="images/dirty.png">
             </div>
+        </div>
+
+        <div id="upgrade-bar">
+            <h2 class="title sub-head">Upgrade</h2>
+            <p class="small-text" id="boost-text">Boost: 5</p>
+            <button id="upgrade-btn" class="care-btn">Upgrade - 10 &#9995;</button>
         </div>
 
         <script src="./script.js"></script>
