@@ -1,0 +1,173 @@
+/* define color variables */
+:root {
+    --happy: #88FF88;
+    --hungry: #FFCC88;
+    --sick: #FF8888;
+    --sad: #88CCFF;
+    --clean: #FFBBDD;
+}
+
+/* font for headers */
+@font-face {
+    font-family: title;
+    src: url("fonts/titles.ttf");
+}
+
+/* font for body text */
+@font-face {
+    font-family: body;
+    src: url("fonts/body.ttf");
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "stats dog buttons"
+        "warnings warnings warnings";
+    ;
+    grid-template-columns: 2fr 3fr 2fr;
+    grid-template-rows: 15% auto 20%;
+    align-items: center;
+	justify-items: center;
+    gap:20px;
+    font-family:body;
+}
+
+.title {
+    font-family: title;
+}
+
+#main-head {
+    grid-area: header;
+    font-size: 50px;
+}
+
+.section-head {
+    font-size: 30px;
+}
+
+/* styling for dog images and container */
+.dog {
+    width: 90%;
+    /* position: relative; */
+}
+
+#dog-container {
+    grid-area: dog;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    background: var(--happy);
+    border-radius: 10px; 
+}
+
+/* styling side bars */
+#stats-bar, #btns-bar {
+    display:block;
+    text-align: center;
+    align-self: center;
+    padding:10px;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius:10px;
+    max-width:100%;
+}
+
+/* styling the stats bar */
+#stats-bar {
+    grid-area: stats;
+    background: #BBDDFF;
+}
+
+.stat {
+    font-size: 22px;
+    display:inline-block;
+    padding:5px;
+    border-radius:5px;
+}
+
+#happy-stat {
+    background: var(--happy);
+}
+
+#hunger-stat {
+    background: var(--hungry);
+}
+
+#health-stat {
+    background: var(--sick);
+}
+
+#clean-stat {
+    background: var(--clean);
+}
+
+/* styling the button bar */
+#btns-bar {
+    grid-area: buttons;
+    background: #FFBBFF;
+    outline: none;
+}
+
+.care-btn {
+    font-size: 22px;
+    font-family: body;
+    background: #BBDDFF;
+    border:2px solid #BBBBFF;
+    border-radius:5px;
+    color: #000000;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition:0.2s;
+}
+
+.care-btn:hover {
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.care-btn:active {
+    background-color: #FFFFFF;
+    color: #000000;
+    cursor: default;
+}
+
+/* styling the warnings bar */
+#warnings-bar {
+    grid-area: warnings;
+    text-align: center;
+    align-self: center;
+    background: #FFDDBB;
+    width:100%;
+    padding-bottom: 10px;
+}
+
+.warning-text {
+    font-size:25px;
+}
+
+#no-warnings {
+    font-size:15px;
+    display: block;
+}
+
+#icons {
+    display: flex;
+    justify-self: center;
+    justify-content: space-between;
+    width:50%;    
+}
+
+.warning-img {
+    width: 50px;
+    display: none;
+}

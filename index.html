@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+    <head lang="en">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Doggy Daycare</title>
+        <link rel="stylesheet" href="./styles.css" />
+    </head>
+    <body>
+
+        <h1 id="main-head" class="title">Doggy Daycare &#128054</h1>
+        
+        <div id="dog-container">
+            <img src="images/dog.png" class="dog">
+        </div>
+
+        <div id="stats-bar">
+            <h2 class="title section-head">Doggy Stats</h2>
+            <p id="happy-stat" class="stat">Happiness: 100</p><br>
+            <p id="hunger-stat" class="stat">Hunger: 0</p><br>
+            <p id="health-stat" class="stat">Health: 100</p><br>
+            <p id="clean-stat" class="stat">Cleanliness: 100</p><br>
+        </div>
+
+        <div id="btns-bar">
+            <h2 class="title section-head">Doggy Care</h2>
+            <button class="care-btn" id="play-btn">Play fetch! &#127934</button><br><br>
+            <button class="care-btn" id="feed-btn">Feed &#129363</button><br><br>
+            <button class="care-btn" id="medicine-btn">Give medicine &#x1F48A</button><br><br>
+            <button class="care-btn" id="clean-btn">Bath time &#128705;</button><br><br>
+        </div>
+
+        <div id="warnings-bar">
+            <h2 class="title warning-text">Warnings &#9888;&#65039;</h2>
+            <p id="no-warnings">**You have no warnings at the moment! Keep it up! Warnings will appear when your puppy isn't feeling well.**</p>
+            <div id="icons">
+                <img title="Your puppy is sad. Play with him!" id="sad" class="warning-img" src="images/sad.png">
+                <img title="Your puppy is hungry. Feed him!" id="hungry" class="warning-img" src="images/hungry.png">
+                <img title="Your puppy is sick. Give him medicine!" id="sick" class="warning-img" src="images/sick.png">
+                <img title="Your puppy is dirty. Give him a bath!" id="dirty" class="warning-img" src="images/dirty.png">
+            </div>
+        </div>
+
+        <script src="./script.js"></script>
+    </body>
+</html>
