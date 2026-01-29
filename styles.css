@@ -54,6 +54,28 @@ body {
     font-size: 30px;
 }
 
+/* name div */
+#name-div {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    background: #CCFF88;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#name-div > input {
+    width: auto;
+    font-size: 20px;
+    font-family: body;
+    outline: none;
+    border: 2px solid #77cf77;
+    border-radius: 5px;
+    background: #FFFFFF;
+}
+
 /* styling for dog images and container */
 .dog {
     width: 90%;
