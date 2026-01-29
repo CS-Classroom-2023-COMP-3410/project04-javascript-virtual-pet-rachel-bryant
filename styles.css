@@ -5,6 +5,7 @@
     --sick: #FF8888;
     --sad: #88CCFF;
     --clean: #FFBBDD;
+    --energy: #FF88FF;
 }
 
 /* font for headers */
@@ -34,7 +35,7 @@ body {
         "warnings warnings upgrade";
     ;
     grid-template-columns: 2fr 3fr 2fr;
-    grid-template-rows: 15% auto 20%;
+    grid-template-rows: 10% auto 20%;
     align-items: center;
 	justify-items: center;
     gap:20px;
@@ -54,26 +55,14 @@ body {
     font-size: 30px;
 }
 
-/* name div */
-#name-div {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
+input {
+    width: 80%;
     text-align: center;
-    background: #CCFF88;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-#name-div > input {
-    width: auto;
-    font-size: 20px;
     font-family: body;
+    font-size: 30px;
     outline: none;
-    border: 2px solid #77cf77;
-    border-radius: 5px;
-    background: #FFFFFF;
+    background: rgba(0, 0, 0, 0);
+    border:none;
 }
 
 /* styling for dog images and container */
@@ -118,6 +107,7 @@ body {
     display:inline-block;
     padding:5px;
     border-radius:5px;
+    margin-top:0px;
 }
 
 #happy-stat {
@@ -134,6 +124,10 @@ body {
 
 #clean-stat {
     background: var(--clean);
+}
+
+#energy-stat {
+    background: var(--energy);
 }
 
 /* styling the button bar */

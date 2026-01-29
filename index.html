@@ -8,17 +8,18 @@
     </head>
     <body>
 
-        <h1 id="main-head" class="title">Doggy Daycare &#128054</h1>
-        
-        <div id="name-div">
-            <h2 class="title sub-head">Name your doggy:</h2>
-            <input type="text"><br><br>
-            <button class="care-btn">Submit</button>
+        <div id="audio-container">
+            <audio id="bark" src="audio/bark.mp3"></audio>
+            <audio id="pant" src="audio/pant.mp3"></audio>
+            <audio id="eat" src="audio/eat.mp3"></audio>
         </div>
+
+        <h1 id="main-head" class="title">Doggy Daycare &#128054</h1>
 
         <div id="dog-container">
             <p class="stat">&#9995;: <span id="pets">0</span></p>
-            <img src="images/dog.png" class="dog">
+            <img src="images/dog.png" class="dog"><br>
+            <input type="text" value="Rufus">
         </div>
 
         <div id="stats-bar">
@@ -27,6 +28,7 @@
             <p id="hunger-stat" class="stat">Hunger: 0</p><br>
             <p id="health-stat" class="stat">Health: 100</p><br>
             <p id="clean-stat" class="stat">Cleanliness: 100</p><br>
+            <p id="energy-stat" class="stat">Energy: 100</p>
         </div>
 
         <div id="btns-bar">
@@ -35,6 +37,7 @@
             <button class="care-btn" id="feed-btn">Feed &#129363</button><br><br>
             <button class="care-btn" id="medicine-btn">Give medicine &#x1F48A</button><br><br>
             <button class="care-btn" id="clean-btn">Bath time &#128705;</button><br><br>
+            <button class="care-btn" id="sleep-btn">Sleep &#128164;</button><br><br>
         </div>
 
         <div id="warnings-bar">
@@ -45,6 +48,7 @@
                 <img title="Your puppy is hungry. Feed him!" id="hungry" class="warning-img" src="images/hungry.png">
                 <img title="Your puppy is sick. Give him medicine!" id="sick" class="warning-img" src="images/sick.png">
                 <img title="Your puppy is dirty. Give him a bath!" id="dirty" class="warning-img" src="images/dirty.png">
+                <img title="Your puppy is tired. Put him to bed!" id="tired" class="warning-img" src="images/tired.png">
             </div>
         </div>
 
