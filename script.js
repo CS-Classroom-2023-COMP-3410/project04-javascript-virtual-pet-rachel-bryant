@@ -75,8 +75,14 @@ window.onload = function() {
     
         // load and display icons
         active_icons = JSON.parse(localStorage.getItem("active_icons")) || [];
-        for (icon of active_icons) {
-            icon.style.display = "block";
+        if (active_icons.length > 0) {
+            no_warnings.style.display = "none";
+            for (icon_id of active_icons) {
+                icon = document.getElementById(icon_id);
+                icon.style.display = "block";
+            }
+        } else {
+            no_warnings.style.display = "block";
         }
     }
 }
@@ -127,7 +133,7 @@ const happy_interval = setInterval(function(){
         dog_container.style.background = sad;
         no_warnings.style.display = "none";
         sad_icon.style.display = "block";
-        active_icons.push(sad_icon);
+        active_icons.push("sad");
     }
 }, 3000);
 
@@ -142,9 +148,9 @@ const hunger_interval = setInterval(function(){
         dog_container.style.background = hungry;
         no_warnings.style.display = "none";
         hungry_icon.style.display = "block";
-        active_icons.push(hungry_icon);
+        active_icons.push("hungry");
     }
-}, 1000);
+}, 2000);
 
 // health stat will decrease every 7 seconds
 const health_interval = setInterval(function(){
@@ -157,7 +163,7 @@ const health_interval = setInterval(function(){
         dog_container.style.background = sick;
         no_warnings.style.display = "none";
         sick_icon.style.display = "block";
-        active_icons.push(sick_icon);
+        active_icons.push("sick");
     }
 }, 7000);
 
@@ -172,7 +178,7 @@ const clean_interval = setInterval(function(){
         dog_container.style.background = dirty;
         no_warnings.style.display = "none";
         dirty_icon.style.display = "block";
-        active_icons.push(dirty_icon);
+        active_icons.push("dirty");
     }
 }, 5000);
 
@@ -187,7 +193,7 @@ const energy_interval = setInterval(function(){
         dog_container.style.background = tired;
         no_warnings.style.display = "none";
         tired_icon.style.display = "block";
-        active_icons.push(tired_icon);
+        active_icons.push("tired");
     }
 }, 2500);
 
@@ -371,7 +377,7 @@ upgrade_btn.onclick = function() {
         boost++;
         boost_text.innerHTML = "Boost: " + boost;
 
-        upgrade_cost += 5;
+        upgrade_cost += 2;
         upgrade_btn.innerHTML = "Upgrade - " + upgrade_cost + " &#9995;";
     }
     if (boost >= 50) {
