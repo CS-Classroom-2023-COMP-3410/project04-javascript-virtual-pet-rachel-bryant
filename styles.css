@@ -65,6 +65,10 @@ input {
     border:none;
 }
 
+#debug-btn {
+    display: block;
+}
+
 /* styling for dog images and container */
 .dog {
     width: 90%;
