@@ -63,6 +63,7 @@ input {
     outline: none;
     background: rgba(0, 0, 0, 0);
     border:none;
+    cursor: pointer;
 }
 
 #debug-btn {

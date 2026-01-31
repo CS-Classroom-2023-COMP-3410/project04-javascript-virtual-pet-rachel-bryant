@@ -1,5 +1,3 @@
-// TODO: add audio
-
 // ACCESS HTML ELEMENTS
 const dog_container = document.getElementById("dog-container");
 const dog = document.querySelector(".dog");
@@ -64,6 +62,7 @@ let energy_stat = 100;
 let colors_by_occurrance = []; // used to track which order background colors come, used for healing stats
 
 let dog_img_timeout = null;
+let dog_sleeping = false;
 
 window.onload = function() {
     if (localStorage.getItem("happy_stat") !== null) {
@@ -255,7 +254,9 @@ function check_icons() {
 function disable_btn(btn, time) {
     btn.disabled = true;
     setTimeout(function(){
-        btn.disabled = false;
+        if (!dog_sleeping) {
+            btn.disabled = false;
+        }
     }, time)
 }
 
@@ -367,9 +368,16 @@ clean_btn.onclick = function() {
 }
 
 // disables all buttons for 10s
+function disable_btn_sleep(btn, time) {
+    btn.disabled = true;
+    setTimeout(function() {
+        btn.disabled = false;
+    }, time)
+}
+
 function disable_btns() {
     for (btn of btns) {
-        disable_btn(btn, 15000);
+        disable_btn_sleep(btn, 15000);
     }
 }
 
@@ -379,6 +387,7 @@ sleep_btn.onclick = function() {
     if (dog_img_timeout != null) {
         clearTimeout(dog_img_timeout);
     }
+    dog_sleeping = true;
     dog.src = "images/sleep.png";
     document.body.style.background = "#8888FF";
     energy_stat = 100;
@@ -394,6 +403,7 @@ sleep_btn.onclick = function() {
         tired_icon.style.display = "none";
         active_icons.splice(active_icons.indexOf(tired_icon), 1);
         check_icons();
+        dog_sleeping = false;
     }, 15000);
 }
 
