@@ -63,6 +63,8 @@ let energy_stat = 100;
 
 let colors_by_occurrance = []; // used to track which order background colors come, used for healing stats
 
+let dog_img_timeout = null;
+
 window.onload = function() {
     if (localStorage.getItem("happy_stat") !== null) {
         // load and display stats
@@ -259,10 +261,28 @@ function disable_btn(btn, time) {
 
 // switches dog image for 5 seconds
 function switch_img(source) {
+    if (dog_img_timeout != null) {
+        clearTimeout(dog_img_timeout); // clear previous timeouts
+    }
+
     dog.src = source;
-    setTimeout(function() {
+    dog_img_timeout = setTimeout(function() {
         dog.src = "images/dog.png";
-    }, 5000)
+        dog_img_timeout = null;
+    }, 5000);
+}
+
+// remove color
+function updateColor(color) {
+    const index = colors_by_occurrance.indexOf(color);
+    if (index != -1) {
+        colors_by_occurrance.splice(index, 1);
+    }
+    if (colors_by_occurrance.length == 0) {
+        dog_container.style.background = happy;
+    } else {
+        dog_container.style.background = colors_by_occurrance[colors_by_occurrance.length-1];
+    }
 }
 
 // play fetch
@@ -276,14 +296,7 @@ play_btn.onclick = function() {
     happy_dis.innerHTML = "Happiness: " + happy_stat;
 
     if (happy_stat >= 50) {
-        if (sad.includes(colors_by_occurrance)) {
-            colors_by_occurrance.splice(colors_by_occurrance.indexOf(sad), 1);
-        }
-        if (colors_by_occurrance.length == 0) {
-            dog_container.style.background = happy;
-        } else {
-            dog_container.style.background = colors_by_occurrance[colors_by_occurrance.length-1];
-        }
+        updateColor(sad);
         sad_icon.style.display = "none";
         active_icons.splice(active_icons.indexOf(sad_icon), 1);
         check_icons();
@@ -307,14 +320,7 @@ feed_btn.onclick = function() {
     hunger_dis.innerHTML = "Hunger: " + hunger_stat;
 
     if (hunger_stat <= 51) {
-        if (hungry.includes(colors_by_occurrance)) {
-            colors_by_occurrance.splice(colors_by_occurrance.indexOf(hungry), 1);
-        }
-        if (colors_by_occurrance.length == 0) {
-            dog_container.style.background = happy;
-        } else {
-            dog_container.style.background = colors_by_occurrance[colors_by_occurrance.length-1];
-        }
+        updateColor(hungry);
         hungry_icon.style.display = "none";
         active_icons.splice(active_icons.indexOf(hungry_icon), 1);
         check_icons();
@@ -333,14 +339,7 @@ sick_btn.onclick = function() {
     health_dis.innerHTML = "Health: " + health_stat;
 
     if (health_stat >= 50) {
-        if (sick.includes(colors_by_occurrance)) {
-            colors_by_occurrance.splice(colors_by_occurrance.indexOf(sick), 1);
-        }
-        if (colors_by_occurrance.length == 0) {
-            dog_container.style.background = happy;
-        } else {
-            dog_container.style.background = colors_by_occurrance[colors_by_occurrance.length-1];
-        }
+        updateColor(sick);
         sick_icon.style.display = "none";
         active_icons.splice(active_icons.indexOf(sick_icon), 1);
         check_icons();
@@ -359,14 +358,7 @@ clean_btn.onclick = function() {
     clean_dis.innerHTML = "Cleanliness: " + clean_stat;
 
     if (clean_stat >= 50) {
-        if (dirty.includes(colors_by_occurrance)) {
-            colors_by_occurrance.splice(colors_by_occurrance.indexOf(dirty), 1);
-        }
-        if (colors_by_occurrance.length == 0) {
-            dog_container.style.background = happy;
-        } else {
-            dog_container.style.background = colors_by_occurrance[colors_by_occurrance.length-1];
-        }
+        updateColor(dirty);
         dirty_icon.style.display = "none";
         active_icons.splice(active_icons.indexOf(dirty_icon), 1);
         check_icons();
@@ -384,6 +376,9 @@ function disable_btns() {
 // put dog to sleep
 sleep_btn.onclick = function() {
     sleep.play();
+    if (dog_img_timeout != null) {
+        clearTimeout(dog_img_timeout);
+    }
     dog.src = "images/sleep.png";
     document.body.style.background = "#8888FF";
     energy_stat = 100;
@@ -391,17 +386,11 @@ sleep_btn.onclick = function() {
     disable_btn(sleep_btn, 30000);
     disable_btns();
 
-    setTimeout(function(){ // dog wakes up after 10s
+    setTimeout(function(){ // dog wakes up after 15s
+        clearTimeout(dog_img_timeout);
         dog.src = "images/dog.png";
         document.body.style.background = "#eff7ff";
-        if (tired.includes(colors_by_occurrance)) {
-            colors_by_occurrance.splice(colors_by_occurrance.indexOf(tired), 1);
-        }
-        if (colors_by_occurrance.length == 0) {
-            dog_container.style.background = happy;
-        } else {
-            dog_container.style.background = colors_by_occurrance[colors_by_occurrance.length-1];
-        }
+        updateColor(tired);
         tired_icon.style.display = "none";
         active_icons.splice(active_icons.indexOf(tired_icon), 1);
         check_icons();
