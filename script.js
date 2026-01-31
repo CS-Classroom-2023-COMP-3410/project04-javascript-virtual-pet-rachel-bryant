@@ -8,6 +8,9 @@ const dog = document.querySelector(".dog");
 const bark = document.getElementById("bark");
 const pant = document.getElementById("pant");
 const eat = document.getElementById("eat");
+const bath = document.getElementById("bath");
+const sleep = document.getElementById("sleep");
+const upgrade = document.getElementById("upgrade");
 
 // upgrade variables
 const points_dis = document.getElementById("pets");
@@ -15,6 +18,7 @@ let pets = 0;
 let upgrade_cost = 10;
 let boost = 5;
 const boost_text = document.getElementById("boost-text");
+let name_val = "Rufus";
 
 // warning variables
 const no_warnings = document.getElementById("no-warnings");
@@ -84,6 +88,18 @@ window.onload = function() {
         } else {
             no_warnings.style.display = "block";
         }
+
+        // load and display upgrade statss
+        pets = Number(localStorage.getItem("pets"));
+        points_dis.innerText = pets;
+        boost = Number(localStorage.getItem("boost"));
+        boost_text.innerHTML = "Boost: " + boost;
+        upgrade_cost = Number(localStorage.getItem("upgrade_cost"));
+        upgrade_btn.innerHTML = "Upgrade - " + upgrade_cost + " &#9995;";
+    
+        // load and display name
+        name_val = localStorage.getItem("name_val");
+        document.getElementById("name").value = name_val;
     }
 }
 
@@ -109,6 +125,14 @@ const save = setInterval(function(){
 
     // save icons
     localStorage.setItem("active_icons", JSON.stringify(active_icons));
+
+    // save upgrade stats
+    localStorage.setItem("pets", pets);
+    localStorage.setItem("boost", boost);
+    localStorage.setItem("upgrade_cost", upgrade_cost);
+
+    // save dog name 
+    localStorage.setItem("name_val", document.getElementById("name").value);
 }, 3000);
 
 // clear local storage for debugging
@@ -120,6 +144,10 @@ function reset() {
     energy_stat = 100;
     colors_by_occurrance = [];
     active_icons = [];
+    pets = 0;
+    boost = 5;
+    upgrade_cost = 10;
+    name_val = "Rufus";
 }
 
 // happy stat will decrease every 3 seconds
@@ -229,9 +257,18 @@ function disable_btn(btn, time) {
     }, time)
 }
 
+// switches dog image for 5 seconds
+function switch_img(source) {
+    dog.src = source;
+    setTimeout(function() {
+        dog.src = "images/dog.png";
+    }, 5000)
+}
+
 // play fetch
 play_btn.onclick = function() {
     pant.play();
+    switch_img("images/fetch.png");
     happy_stat += boost;
     if (happy_stat > 100) { // max happy stat is 100
         happy_stat = 100;
@@ -257,6 +294,7 @@ play_btn.onclick = function() {
 // feed dog
 feed_btn.onclick = function() {
     eat.play();
+    switch_img("images/eat.png");
     setTimeout(function(){
         eat.pause();
         eat.currentTime = 0;
@@ -287,6 +325,7 @@ feed_btn.onclick = function() {
 // give dog medicine
 sick_btn.onclick = function() {
     bark.play();
+    switch_img("images/medicine.png");
     health_stat += boost;
     if (health_stat > 100) { // max happy stat is 100
         health_stat = 100;
@@ -311,6 +350,8 @@ sick_btn.onclick = function() {
 
 // give dog a bath
 clean_btn.onclick = function() {
+    bath.play();
+    switch_img("images/bath.png");
     clean_stat += boost;
     if (clean_stat > 100) { // max happy stat is 100
         clean_stat = 100;
@@ -336,12 +377,13 @@ clean_btn.onclick = function() {
 // disables all buttons for 10s
 function disable_btns() {
     for (btn of btns) {
-        disable_btn(btn, 10000);
+        disable_btn(btn, 15000);
     }
 }
 
 // put dog to sleep
 sleep_btn.onclick = function() {
+    sleep.play();
     dog.src = "images/sleep.png";
     document.body.style.background = "#8888FF";
     energy_stat = 100;
@@ -352,25 +394,24 @@ sleep_btn.onclick = function() {
     setTimeout(function(){ // dog wakes up after 10s
         dog.src = "images/dog.png";
         document.body.style.background = "#eff7ff";
-        if (energy_stat >= 50) {
-            if (tired.includes(colors_by_occurrance)) {
-                colors_by_occurrance.splice(colors_by_occurrance.indexOf(tired), 1);
-            }
-            if (colors_by_occurrance.length == 0) {
-                dog_container.style.background = happy;
-            } else {
-                dog_container.style.background = colors_by_occurrance[colors_by_occurrance.length-1];
-            }
-            tired_icon.style.display = "none";
-            active_icons.splice(active_icons.indexOf(tired_icon), 1);
-            check_icons();
+        if (tired.includes(colors_by_occurrance)) {
+            colors_by_occurrance.splice(colors_by_occurrance.indexOf(tired), 1);
         }
-    }, 10000);
+        if (colors_by_occurrance.length == 0) {
+            dog_container.style.background = happy;
+        } else {
+            dog_container.style.background = colors_by_occurrance[colors_by_occurrance.length-1];
+        }
+        tired_icon.style.display = "none";
+        active_icons.splice(active_icons.indexOf(tired_icon), 1);
+        check_icons();
+    }, 15000);
 }
 
 // upgrades boost
 upgrade_btn.onclick = function() {
     if ((pets >= upgrade_cost) && (boost <= 50)) {
+        upgrade.play();
         pets -= upgrade_cost;
         points_dis.innerText = pets;
 
