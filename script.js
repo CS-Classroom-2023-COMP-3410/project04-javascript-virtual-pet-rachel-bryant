@@ -99,7 +99,9 @@ window.onload = function() {
         upgrade_cost = Number(localStorage.getItem("upgrade_cost"));
         upgrade_btn.innerHTML = "Upgrade - " + upgrade_cost + " &#9995;";
         upgrade_max = Boolean(localStorage.getItem(upgrade_max));
-        if (upgrade_max) {upgrade_btn.disabled = true;}
+        if (upgrade_max == true) {
+            upgrade_btn.disabled = true;
+        }
     
         // load and display name
         name_val = localStorage.getItem("name_val");
