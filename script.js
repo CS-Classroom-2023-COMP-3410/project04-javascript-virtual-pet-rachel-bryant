@@ -15,6 +15,7 @@ const points_dis = document.getElementById("pets");
 let pets = 0;
 let upgrade_cost = 10;
 let boost = 5;
+let upgrade_max = false;
 const boost_text = document.getElementById("boost-text");
 let name_val = "Rufus";
 
@@ -90,13 +91,15 @@ window.onload = function() {
             no_warnings.style.display = "block";
         }
 
-        // load and display upgrade statss
+        // load and display upgrade stats
         pets = Number(localStorage.getItem("pets"));
         points_dis.innerText = pets;
         boost = Number(localStorage.getItem("boost"));
         boost_text.innerHTML = "Boost: " + boost;
         upgrade_cost = Number(localStorage.getItem("upgrade_cost"));
         upgrade_btn.innerHTML = "Upgrade - " + upgrade_cost + " &#9995;";
+        upgrade_max = Boolean(localStorage.getItem(upgrade_max));
+        if (upgrade_max) {upgrade_btn.disabled = true;}
     
         // load and display name
         name_val = localStorage.getItem("name_val");
@@ -131,6 +134,7 @@ const save = setInterval(function(){
     localStorage.setItem("pets", pets);
     localStorage.setItem("boost", boost);
     localStorage.setItem("upgrade_cost", upgrade_cost);
+    localStorage.setItem("upgrade_max", upgrade_max);
 
     // save dog name 
     localStorage.setItem("name_val", document.getElementById("name").value);
@@ -421,6 +425,7 @@ upgrade_btn.onclick = function() {
         upgrade_btn.innerHTML = "Upgrade - " + upgrade_cost + " &#9995;";
     }
     if (boost >= 50) {
+        upgrade_max = true;
         upgrade_btn.disabled = true;
     }
 }
