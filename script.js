@@ -98,7 +98,7 @@ window.onload = function() {
         boost_text.innerHTML = "Boost: " + boost;
         upgrade_cost = Number(localStorage.getItem("upgrade_cost"));
         upgrade_btn.innerHTML = "Upgrade - " + upgrade_cost + " &#9995;";
-        upgrade_max = localStorage.getItem("upgrade_max") === "true";
+        upgrade_max = localStorage.getItem("upgrade_max") === "true" || false;
         if (upgrade_max) {
             upgrade_btn.disabled = true;
         }
